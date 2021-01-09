@@ -6,13 +6,16 @@
 <script>
     var canvas;
     var canvasContext;
+    
     var ballX = 50;
     var ballY = 50;
-    var ballSpeedX = 5;
-    var ballSpeedY = 4;
+    var ballSpeedX = 10;
+    var ballSpeedY = 10;
 
     var paddle1Y = 250;
+    var paddle2Y = 250;
     const PADDLE_HEIGHT = 100;
+    const PADDLE_WIDTH = 10;
 
     function calculateMousePos(evt) {
         var rect = canvas.getBoundingClientRect();
@@ -55,8 +58,13 @@
         }
 
         if (ballX < 0) {
-            ballSpeedX = -ballSpeedX;
+            if((ballY > paddle1Y) && (ballY < paddle1Y + PADDLE_HEIGHT)) {
+                ballSpeedX = -ballSpeedX;
+            } else {
+                ballReset();
+            }
         }
+
         if (ballY < 0) {
             ballSpeedY = -ballSpeedY;
         }
@@ -67,7 +75,10 @@
         colorRect(0, 0, canvas.width, canvas.height, 'black');
 
         // draws the left paddle
-        colorRect(0, paddle1Y, 10, PADDLE_HEIGHT, 'white');
+        colorRect(0, paddle1Y, PADDLE_WIDTH, PADDLE_HEIGHT, 'white');
+
+        // draws the computer paddle
+        colorRect(canvas.width - PADDLE_WIDTH, paddle2Y, PADDLE_WIDTH, PADDLE_HEIGHT, 'white');
 
         // draws the ball
         colorCircle(ballX, ballY, 10, 'white');
@@ -83,6 +94,12 @@
         canvasContext.beginPath();
         canvasContext.arc(centerX, centerY, radius, 0, Math.PI*2, true);
         canvasContext.fill();
+    }
+
+    function ballReset() {
+        ballSpeedX = -ballSpeedX;
+        ballX = canvas.width/2;
+        ballY = canvas.height/2;
     }
 
 </script>
