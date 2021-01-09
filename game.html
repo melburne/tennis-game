@@ -6,7 +6,7 @@
 <script>
     var canvas;
     var canvasContext;
-    
+
     var ballX = 50;
     var ballY = 50;
     var ballSpeedX = 10;
@@ -51,7 +51,11 @@
         ballY = ballY + ballSpeedY;
 
         if (ballX > canvas.width) {
-            ballSpeedX = -ballSpeedX;
+            if((ballY > paddle2Y) && (ballY < paddle2Y + PADDLE_HEIGHT)) {
+                ballSpeedX = -ballSpeedX;
+            } else {
+                ballReset();
+            }
         }
         if (ballY > canvas.height) {
             ballSpeedY = -ballSpeedY;
