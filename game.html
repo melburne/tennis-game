@@ -36,6 +36,14 @@
         };
     }
 
+    function handleMouseClick(evt) {
+        if (showWinScreen) {
+            player1Score = 0;
+            player2Score = 0;
+            showWinScreen = false;
+        }
+    }
+
     window.onload = function() {
         canvas = document.getElementById('gameCanvas');
         canvasContext = canvas.getContext('2d');
@@ -45,6 +53,8 @@
             moveEverything();
             drawEverything();
         }, 1000/framesPerSecond);
+
+        canvas.addEventListener('mousedown', handleMouseClick);
 
         canvas.addEventListener('mousemove',
             function(evt) {
@@ -108,7 +118,12 @@
 
         if (showWinScreen) {
             canvasContext.fillStyle = 'white';
-            canvasContext.fillText("Click to continue", 100, 100);
+            if (player1Score >= WINNING_SCORE) {
+                canvasContext.fillText("You Won!", 350, 200);
+            } else if (player2Score >= WINNING_SCORE) {
+                canvasContext.fillText("Computer Won!", 350, 200);
+            }
+            canvasContext.fillText("Click to continue", 350, 500);
             return;
         }
 
@@ -140,8 +155,6 @@
 
     function ballReset() {
         if (player1Score >= WINNING_SCORE || player2Score >= WINNING_SCORE) {
-            player1Score = 0;
-            player2Score = 0;
             showWinScreen = true;
         }
         ballSpeedX = -ballSpeedX;
