@@ -119,11 +119,11 @@ function drawEverything() {
     if (showWinScreen) {
         canvasContext.fillStyle = 'white';
         if (player1Score >= WINNING_SCORE) {
-            canvasContext.fillText("You Won!", 350, 200);
+            canvasContext.fillText("You Won!", 345, 200);
         } else if (player2Score >= WINNING_SCORE) {
-            canvasContext.fillText("Computer Won!", 350, 200);
+            canvasContext.fillText("Computer Won!", 315, 200);
         }
-        canvasContext.fillText("Click to continue", 350, 500);
+        canvasContext.fillText("Click to continue", 310, 500);
         return;
     }
 
@@ -139,6 +139,7 @@ function drawEverything() {
     colorCircle(ballX, ballY, 10, 'white');
 
     // draw the score
+    canvasContext.font="20px sans-serif"
     canvasContext.fillText(player1Score, 100, 100);
     canvasContext.fillText(player2Score, canvas.width - 100, 100);
 }
