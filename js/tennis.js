@@ -40,6 +40,9 @@ function handleMouseClick(evt) {
 
 window.onload = function() {
     canvas = document.getElementById('gameCanvas');
+    canvas.width = window.innerWidth/2;
+    canvas.height = 600;
+    canvas.style = "position:absolute; left:50%; margin-left:-400px;";
     canvasContext = canvas.getContext('2d');
 
     var framesPerSecond = 30;
